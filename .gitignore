@@ -1,3 +1,4 @@
 corpus/
 model/
 *.txt
+!stopwords.txt
