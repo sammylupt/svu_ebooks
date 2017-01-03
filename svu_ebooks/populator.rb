@@ -1,6 +1,9 @@
 module SvuEbooks
   class Populator
 
+    NBC_REGEX = /-- \(C\) NBC/
+    INVALID_DESCRIPTION = "Know what this is about?\n Be the first one to add a plot."
+
     def run!
       klasses = [
         SvuEbooks::IMDBPlotFetcher,
@@ -22,13 +25,17 @@ module SvuEbooks
     private
 
     def filtered_results(results)
-      invalid_description = "Know what this is about?\n Be the first one to add a plot."
-      nbc_regex = /-- \(C\) NBC/
-
       results.flatten.uniq.reject do |episode|
-        episode == invalid_description ||
-        episode.match(nbc_regex)
+        invalid?(episode) || description_matches_nbc_regex(episode)
       end
+    end
+
+    def invalid?(episode)
+      episode == INVALID_DESCRIPTION
+    end
+
+    def description_matches_nbc_regex(episode)
+      episode && episode.encode("UTF-8", invalid: :replace, replace: "?").match(NBC_REGEX)
     end
   end
 end
