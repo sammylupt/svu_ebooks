@@ -1,6 +1,10 @@
 ##SVU Ebooks
 
-* Populate a text file with the plot descriptions of SVU episodes from IMDb, Hulu, and Rotten Tomatoes
+* Populate a text file with the plot descriptions of SVU episodes from IMDb, Hulu, and Rotten Tomatoes. Make sure you have a Hulu API key
+
+  ```
+  $ HULU_AUTH_TOKEN=foo pry
+  ```
 
   ```ruby
   require './svu_ebooks'
