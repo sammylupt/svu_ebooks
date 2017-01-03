@@ -17,7 +17,7 @@ module SvuEbooks
         end
       end
 
-      File.open("../svu.txt", "w") do |file|
+      File.open("svu.txt", "w") do |file|
         file.puts filtered_results(results)
       end
     end
@@ -35,7 +35,7 @@ module SvuEbooks
     end
 
     def description_matches_nbc_regex(episode)
-      episode && episode.encode("UTF-8", invalid: :replace, replace: "?").match(NBC_REGEX)
+      episode && episode.encode("UTF-8", invalid: :replace, replace: "? ").match(NBC_REGEX)
     end
   end
 end
