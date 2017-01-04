@@ -45,7 +45,7 @@ module SvuEbooks
       throw NotImplementedError
     end
 
-    def filter_response_for_episodes(content)
+    def filter_episodes(content)
       throw NotImplementedError
     end
   end
