@@ -25,9 +25,15 @@ module SvuEbooks
     private
 
     def filtered_results(results)
-      results.flatten.uniq.reject do |episode|
-        invalid?(episode) || description_matches_nbc_regex(episode)
-      end
+      results
+        .flatten
+        .uniq
+        .map { |e| normalize(e) }
+        .reject { |e| invalid?(e) || description_matches_nbc_regex(e) }
+    end
+
+    def normalize(episode)
+      episode.encode("UTF-8", invalid: :replace, replace: "? ")
     end
 
     def invalid?(episode)
@@ -35,7 +41,7 @@ module SvuEbooks
     end
 
     def description_matches_nbc_regex(episode)
-      episode && episode.encode("UTF-8", invalid: :replace, replace: "? ").match(NBC_REGEX)
+      episode && episode.match(NBC_REGEX)
     end
   end
 end
